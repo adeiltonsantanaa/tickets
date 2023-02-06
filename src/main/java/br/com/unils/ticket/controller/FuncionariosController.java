@@ -3,6 +3,8 @@ package br.com.unils.ticket.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,12 +20,12 @@ public class FuncionariosController extends CrudControllerAbstract<FuncionariosM
 	private FuncionariosService funcionariosService;
 
 	@Override
-	public FuncionariosModel findById(Long id) {
+	public FuncionariosModel findById(@PathVariable Long id) {
 		return funcionariosService.findById(id);
 	}
 
 	@Override
-	public FuncionariosModel save(FuncionariosModel obj) {
+	public FuncionariosModel save(@RequestBody FuncionariosModel obj) {
 		return funcionariosService.save(obj);
 	}
 
@@ -33,7 +35,7 @@ public class FuncionariosController extends CrudControllerAbstract<FuncionariosM
 	}
 
 	@Override
-	public void remove(Long id) {
+	public void remove(@PathVariable Long id) {
 		funcionariosService.remove(id);
 	}
 

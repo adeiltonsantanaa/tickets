@@ -3,6 +3,8 @@ package br.com.unils.ticket.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,12 +20,12 @@ public class TicketController extends CrudControllerAbstract<TicketModel> {
 	private TicketService ticketService;
 
 	@Override
-	public TicketModel findById(Long id) {
+	public TicketModel findById(@PathVariable Long id) {
 		return ticketService.findById(id);
 	}
 
 	@Override
-	public TicketModel save(TicketModel obj) {
+	public TicketModel save(@RequestBody TicketModel obj) {
 		return ticketService.save(obj);
 	}
 
@@ -33,7 +35,7 @@ public class TicketController extends CrudControllerAbstract<TicketModel> {
 	}
 
 	@Override
-	public void remove(Long id) {
+	public void remove(@PathVariable Long id) {
 		ticketService.remove(id);
 	}
 
