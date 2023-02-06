@@ -1,5 +1,6 @@
 package br.com.unils.ticket.model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,8 +15,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_funcionarios")
-public class FuncionariosModel {
+public class FuncionariosModel implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codFuncionario;
@@ -30,6 +32,16 @@ public class FuncionariosModel {
 	private List<TicketModel> tickets;
 
 	public FuncionariosModel() {
+	}
+
+	public FuncionariosModel(Long codFuncionario, String nome, String email, SetorModel setor,
+			List<TicketModel> tickets) {
+		super();
+		this.codFuncionario = codFuncionario;
+		this.nome = nome;
+		this.email = email;
+		this.setor = setor;
+		this.tickets = tickets;
 	}
 
 	public Long getCodFuncionario() {
@@ -89,11 +101,6 @@ public class FuncionariosModel {
 		return Objects.equals(codFuncionario, other.codFuncionario) && Objects.equals(email, other.email)
 				&& Objects.equals(nome, other.nome) && Objects.equals(setor, other.setor)
 				&& Objects.equals(tickets, other.tickets);
-	}
-
-	@Override
-	public String toString() {
-		return "FuncionariosModel [codFuncionario=" + codFuncionario + ", nome=" + nome + ", email=" + email + "]";
 	}
 
 }
