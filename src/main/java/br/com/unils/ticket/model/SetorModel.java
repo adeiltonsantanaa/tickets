@@ -1,9 +1,10 @@
 package br.com.unils.ticket.model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +15,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_setor")
-public class SetorModel {
+public class SetorModel implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +25,18 @@ public class SetorModel {
 
 	private String nome;
 
-	@JsonIgnore
+	@JsonBackReference
 	@OneToMany(mappedBy = "setor")
 	private List<FuncionariosModel> funcionarios;
 
 	public SetorModel() {
+	}
+
+	public SetorModel(Long codSetor, String nome, List<FuncionariosModel> funcionarios) {
+		super();
+		this.codSetor = codSetor;
+		this.nome = nome;
+		this.funcionarios = funcionarios;
 	}
 
 	public Long getCodSetor() {
