@@ -2,6 +2,8 @@ package br.com.unils.ticket.model;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +22,7 @@ public class MensagemModel {
 
 	private String descricao;
 
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "id_ticket")
 	private TicketModel ticket;

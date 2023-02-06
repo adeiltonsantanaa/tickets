@@ -3,6 +3,8 @@ package br.com.unils.ticket.model;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +23,7 @@ public class ProblemasModel {
 	private String nome;
 	private String descricao;
 
+	@JsonBackReference
 	@OneToMany(mappedBy = "problemas")
 	private List<TicketModel> tickets;
 
