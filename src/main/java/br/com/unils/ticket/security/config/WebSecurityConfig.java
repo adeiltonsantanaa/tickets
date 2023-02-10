@@ -39,9 +39,8 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.and().authorizeRequests().antMatchers("/h2/**", "/auth/**", "/api/ws/sala/buscaTurma").permitAll()
-				.antMatchers("/api/ws/ensalamento/**").authenticated().antMatchers("/api/ws/turma/**").authenticated()
-				.antMatchers("/api/ws/relacionamentos/deletar/**").authenticated().anyRequest().authenticated();
+				.and().authorizeRequests().antMatchers("/h2/**", "/auth/**").permitAll().antMatchers("/api/**")
+				.authenticated().anyRequest().authenticated();
 
 		http.addFilterBefore(new JwtTokenFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
 		http.headers().frameOptions().disable();
