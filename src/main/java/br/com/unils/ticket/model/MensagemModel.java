@@ -2,15 +2,15 @@ package br.com.unils.ticket.model;
 
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "tb_mensagem")
@@ -27,6 +27,10 @@ public class MensagemModel {
 	@JoinColumn(name = "id_ticket")
 	private TicketModel ticket;
 
+	@ManyToOne
+	@JoinColumn(name = "id_funcionario")
+	private FuncionariosModel funcionario;
+
 	public MensagemModel() {
 	}
 
@@ -40,6 +44,14 @@ public class MensagemModel {
 
 	public String getDescricao() {
 		return descricao;
+	}
+
+	public FuncionariosModel getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(FuncionariosModel funcionario) {
+		this.funcionario = funcionario;
 	}
 
 	public void setDescricao(String descricao) {
@@ -56,7 +68,7 @@ public class MensagemModel {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codMensagem, descricao);
+		return Objects.hash(codMensagem, descricao, funcionario, ticket);
 	}
 
 	@Override
@@ -68,7 +80,8 @@ public class MensagemModel {
 		if (getClass() != obj.getClass())
 			return false;
 		MensagemModel other = (MensagemModel) obj;
-		return Objects.equals(codMensagem, other.codMensagem) && Objects.equals(descricao, other.descricao);
+		return Objects.equals(codMensagem, other.codMensagem) && Objects.equals(descricao, other.descricao)
+				&& Objects.equals(funcionario, other.funcionario) && Objects.equals(ticket, other.ticket);
 	}
 
 	@Override

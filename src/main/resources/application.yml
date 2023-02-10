@@ -1,3 +1,8 @@
+security:
+  jwt:
+    token:
+      secret-key: un1l$
+      expire-length: 3600000
 spring:
   h2:
     console:

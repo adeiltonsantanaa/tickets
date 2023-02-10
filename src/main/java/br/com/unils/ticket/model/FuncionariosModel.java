@@ -4,14 +4,19 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.unils.ticket.security.model.UserModel;
 
 @Entity
 @Table(name = "tb_funcionarios")
@@ -28,20 +33,26 @@ public class FuncionariosModel implements Serializable {
 	@JoinColumn(name = "id_setor")
 	private SetorModel setor;
 
+	@JsonBackReference
 	@OneToMany(mappedBy = "funcionarios")
 	private List<TicketModel> tickets;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "funcionario")
+	private List<MensagemModel> mensagens;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "funcionario")
+	private List<UserModel> user;
 
 	public FuncionariosModel() {
 	}
 
-	public FuncionariosModel(Long codFuncionario, String nome, String email, SetorModel setor,
-			List<TicketModel> tickets) {
-		super();
+	public FuncionariosModel(Long codFuncionario, String nome, String email, SetorModel setor) {
 		this.codFuncionario = codFuncionario;
 		this.nome = nome;
 		this.email = email;
 		this.setor = setor;
-		this.tickets = tickets;
 	}
 
 	public Long getCodFuncionario() {
@@ -50,6 +61,22 @@ public class FuncionariosModel implements Serializable {
 
 	public void setCodFuncionario(Long codFuncionario) {
 		this.codFuncionario = codFuncionario;
+	}
+
+	public List<MensagemModel> getMensagens() {
+		return mensagens;
+	}
+
+	public List<UserModel> getUser() {
+		return user;
+	}
+
+	public void setUser(List<UserModel> user) {
+		this.user = user;
+	}
+
+	public void setMensagens(List<MensagemModel> mensagens) {
+		this.mensagens = mensagens;
 	}
 
 	public String getNome() {
@@ -86,7 +113,7 @@ public class FuncionariosModel implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codFuncionario, email, nome, setor, tickets);
+		return Objects.hash(codFuncionario, email, mensagens, nome, setor, tickets);
 	}
 
 	@Override
@@ -99,8 +126,8 @@ public class FuncionariosModel implements Serializable {
 			return false;
 		FuncionariosModel other = (FuncionariosModel) obj;
 		return Objects.equals(codFuncionario, other.codFuncionario) && Objects.equals(email, other.email)
-				&& Objects.equals(nome, other.nome) && Objects.equals(setor, other.setor)
-				&& Objects.equals(tickets, other.tickets);
+				&& Objects.equals(mensagens, other.mensagens) && Objects.equals(nome, other.nome)
+				&& Objects.equals(setor, other.setor) && Objects.equals(tickets, other.tickets);
 	}
 
 }
