@@ -12,7 +12,6 @@ import br.com.unils.ticket.repository.TicketRepository;
 @Service
 public class TicketService implements Crud<TicketModel> {
 
-	
 	@Autowired
 	private TicketRepository ticketRepository;
 
@@ -34,5 +33,13 @@ public class TicketService implements Crud<TicketModel> {
 	@Override
 	public void remove(Long id) {
 		ticketRepository.deleteById(id);
+	}
+
+	public void disableTicket(Long cod) {
+		ticketRepository.disableTicket(cod);
+	}
+
+	public List<TicketModel> findTicketsActives() {
+		return ticketRepository.findTicketsActives();
 	}
 }
