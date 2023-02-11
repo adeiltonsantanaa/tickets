@@ -42,4 +42,8 @@ public class TicketService implements Crud<TicketModel> {
 	public List<TicketModel> findTicketsActives() {
 		return ticketRepository.findTicketsActives();
 	}
+
+	public List<TicketModel> findTicketsActivesRoleFunc(Long id) {
+		return ticketRepository.findTicketsActivesRoleFunc(id);
+	}
 }

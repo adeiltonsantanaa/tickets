@@ -54,5 +54,11 @@ public class TicketController extends CrudControllerAbstract<TicketModel> {
 	public List<TicketModel> findTicketsActives(){
 		return ticketService.findTicketsActives();
 	}
+	
+	@GetMapping(value = "/todos/ativos/{id}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public List<TicketModel> findTicketsActivesRoleFun(@PathVariable Long id){
+		return ticketService.findTicketsActivesRoleFunc(id);
+	}
 
 }

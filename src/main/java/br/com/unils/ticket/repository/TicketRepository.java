@@ -23,5 +23,7 @@ public interface TicketRepository extends JpaRepository<TicketModel, Long> {
 	@Query("SELECT t FROM TicketModel t WHERE t.ativo = true")
 	List<TicketModel> findTicketsActives();
 
+	@Query("SELECT t FROM TicketModel t WHERE t.ativo = true AND t.funcionarios.codFuncionario=:codFunc")
+	List<TicketModel> findTicketsActivesRoleFunc(@Param(value = "codFunc") Long codFunc);
+
 }
- 
