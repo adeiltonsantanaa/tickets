@@ -2,6 +2,7 @@ package br.com.unils.ticket.security.model.vo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class TokenVO implements Serializable {
@@ -15,9 +16,10 @@ public class TokenVO implements Serializable {
 	private String refreshToken;
 	private String nomeFuncionario;
 	private Long codFuncionario;
+	private List<String> roles;
 
 	public TokenVO(String username, Boolean authenticated, Date created, Date expiration, String accessToken,
-			String refreshToken, String nomeFuncionario, Long codFuncionario) {
+			String refreshToken, String nomeFuncionario, Long codFuncionario, List<String> roles) {
 		this.username = username;
 		this.authenticated = authenticated;
 		this.created = created;
@@ -26,6 +28,7 @@ public class TokenVO implements Serializable {
 		this.refreshToken = refreshToken;
 		this.nomeFuncionario = nomeFuncionario;
 		this.codFuncionario = codFuncionario;
+		this.roles = roles;
 	}
 
 	public TokenVO() {
@@ -33,6 +36,14 @@ public class TokenVO implements Serializable {
 
 	public String getUsername() {
 		return username;
+	}
+
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
 	}
 
 	public void setUsername(String username) {

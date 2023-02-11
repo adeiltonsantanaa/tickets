@@ -49,7 +49,7 @@ public class JwtTokenProvider {
 		Date validity = new Date(now.getTime() + validityInMilliseconds);
 		var accessToken = getAccessToken(username, roles, now, validity);
 		var refreshToken = getRefreshToken(username, roles, now);
-		return new TokenVO(username, true, now, validity, accessToken, refreshToken, nomeFuncionario, codFuncionario);
+		return new TokenVO(username, true, now, validity, accessToken, refreshToken, nomeFuncionario, codFuncionario, roles);
 	}
 
 	private String getAccessToken(String username, List<String> roles, Date now, Date validity) {
