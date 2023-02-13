@@ -35,15 +35,15 @@ public class TicketService implements Crud<TicketModel> {
 		ticketRepository.deleteById(id);
 	}
 
-	public void disableTicket(Long cod) {
-		ticketRepository.disableTicket(cod);
+	public void enableOrDisableTicket(boolean status, Long cod) {
+		ticketRepository.EnableOrDisableTicket(status, cod);
 	}
 
-	public List<TicketModel> findTicketsActives() {
-		return ticketRepository.findTicketsActives();
+	public List<TicketModel> findTicketsEnableOrDisable(Boolean status) {
+		return ticketRepository.findAllTicketsEnableOrDisable(status);
 	}
 
-	public List<TicketModel> findTicketsActivesRoleFunc(Long id) {
-		return ticketRepository.findTicketsActivesRoleFunc(id);
+	public List<TicketModel> findTicketsActivesRoleFunc(Boolean status, Long id) {
+		return ticketRepository.findAllTicketsActivesOrDisableOfFunc(status, id);
 	}
 }

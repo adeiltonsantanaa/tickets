@@ -17,13 +17,13 @@ public interface TicketRepository extends JpaRepository<TicketModel, Long> {
 
 	@Modifying
 	@Transactional
-	@Query("UPDATE TicketModel t SET t.ativo = 'false' WHERE t.codTicket=:cod")
-	void disableTicket(@Param(value = "cod") Long cod);
+	@Query("UPDATE TicketModel t SET t.ativo =:status WHERE t.codTicket=:cod")
+	void EnableOrDisableTicket(@Param(value = "status") boolean status, @Param(value = "cod") Long cod);
 
-	@Query("SELECT t FROM TicketModel t WHERE t.ativo = true")
-	List<TicketModel> findTicketsActives();
+	@Query("SELECT t FROM TicketModel t WHERE t.ativo =:status")
+	List<TicketModel> findAllTicketsEnableOrDisable(@Param(value = "status") Boolean status);
 
-	@Query("SELECT t FROM TicketModel t WHERE t.ativo = true AND t.funcionarios.codFuncionario=:codFunc")
-	List<TicketModel> findTicketsActivesRoleFunc(@Param(value = "codFunc") Long codFunc);
+	@Query("SELECT t FROM TicketModel t WHERE t.ativo =:status AND t.funcionarios.codFuncionario=:codFunc")
+	List<TicketModel> findAllTicketsActivesOrDisableOfFunc(@Param(value = "status") Boolean status, @Param(value = "codFunc") Long codFunc);
 
 }

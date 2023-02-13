@@ -46,19 +46,36 @@ public class TicketController extends CrudControllerAbstract<TicketModel> {
 	@PutMapping(value = "/disable/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public void disableTicket(@PathVariable Long id) {
-		ticketService.disableTicket(id);
+		ticketService.enableOrDisableTicket(false, id);
 	}
-	
+
+	@PutMapping(value = "/enable/{id}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public void enableTicket(@PathVariable Long id) {
+		ticketService.enableOrDisableTicket(true, id);
+	}
+
 	@GetMapping(value = "/todos/ativos")
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<TicketModel> findTicketsActives(){
-		return ticketService.findTicketsActives();
+	public List<TicketModel> findTicketsActives() {
+		return ticketService.findTicketsEnableOrDisable(true);
 	}
 	
+	@GetMapping(value = "/todos/disable")
+	@ResponseStatus(code = HttpStatus.OK)
+	public List<TicketModel> findTicketsDisable() {
+		return ticketService.findTicketsEnableOrDisable(false);
+	}
+
 	@GetMapping(value = "/todos/ativos/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<TicketModel> findTicketsActivesRoleFun(@PathVariable Long id){
-		return ticketService.findTicketsActivesRoleFunc(id);
+	public List<TicketModel> findTicketsActivesRoleFun(@PathVariable Long id) {
+		return ticketService.findTicketsActivesRoleFunc(true, id);
+	}
+	@GetMapping(value = "/todos/disable/{id}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public List<TicketModel> findTicketsDisableRoleFun(@PathVariable Long id) {
+		return ticketService.findTicketsActivesRoleFunc(false, id);
 	}
 
 }
