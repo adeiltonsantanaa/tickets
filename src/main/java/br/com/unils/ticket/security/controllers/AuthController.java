@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.unils.ticket.security.model.vo.LoginCredentialsVO;
+import br.com.unils.ticket.security.model.vo.UserVO;
+import br.com.unils.ticket.security.model.vo.UserVOResponse;
 import br.com.unils.ticket.security.services.AuthService;
 
 @RestController
@@ -30,6 +32,11 @@ public class AuthController {
 		if (token == null)
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
 		return token;
+	}
+	
+	@PostMapping(value = "/createUser")
+	public UserVOResponse createUser(@RequestBody UserVO user) throws Exception {
+		return authService.createUser(user);
 	}
 
 	@SuppressWarnings("rawtypes")
