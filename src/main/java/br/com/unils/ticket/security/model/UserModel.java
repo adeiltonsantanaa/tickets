@@ -65,6 +65,16 @@ public class UserModel implements UserDetails, Serializable {
 	public UserModel() {
 	}
 
+	public UserModel(String userName, String fullName, String password) {
+		this.userName = userName;
+		this.fullName = fullName;
+		this.password = password;
+		this.accountNonExpired = true;
+		this.accountNonLocked = true;
+		this.credentialsNonExpired = true;
+		this.enabled = true;
+	}
+
 	public List<String> getRoles() {
 		List<String> roles = new ArrayList<>();
 		permissions.forEach(p -> roles.add(p.getDescricao()));

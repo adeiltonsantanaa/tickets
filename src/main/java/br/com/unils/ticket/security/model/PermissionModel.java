@@ -27,6 +27,11 @@ public class PermissionModel implements GrantedAuthority, Serializable {
 	public PermissionModel() {
 	}
 
+	public PermissionModel(Long id, String descricao) {
+		this.id = id;
+		this.descricao = descricao;
+	}
+	
 	@Override
 	public String getAuthority() {
 		return this.descricao;
