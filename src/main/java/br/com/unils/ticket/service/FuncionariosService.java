@@ -35,5 +35,9 @@ public class FuncionariosService implements Crud<FuncionariosModel> {
 		funcionariosRepository.deleteById(id);
 
 	}
+	
+	public FuncionariosModel verifyEmail(String email) {
+		return funcionariosRepository.verifyEmail(email);
+	}
 
 }
