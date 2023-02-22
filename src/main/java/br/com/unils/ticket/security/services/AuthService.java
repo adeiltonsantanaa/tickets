@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.com.unils.ticket.exceptions.InvalidEmailException;
 import br.com.unils.ticket.model.FuncionariosModel;
 import br.com.unils.ticket.security.Jwt.JwtTokenProvider;
 import br.com.unils.ticket.security.model.PermissionModel;
@@ -59,7 +60,7 @@ public class AuthService {
 			userRepository.save(user);
 			return new UserVOResponse(user.getUsername(), user.getFullName());
 		}
-		throw new RuntimeException("E-mail inexistente!");
+		throw new InvalidEmailException("E-mail não cadastrado! Fale com o administrador.");
 	}
 
 	private UserModel instanciaUser(UserVO obj, FuncionariosModel funcionario) {
