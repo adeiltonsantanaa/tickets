@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import br.com.unils.ticket.exceptions.ExceptionResponse;
 import br.com.unils.ticket.exceptions.ExistingRecordException;
+import br.com.unils.ticket.exceptions.InvalidEmailException;
 import br.com.unils.ticket.exceptions.InvalidJWTAuthenticationException;
 
 @ControllerAdvice
@@ -34,6 +35,14 @@ public class CustomizedExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(InvalidJWTAuthenticationException.class)
 	public final ResponseEntity<ExceptionResponse> HandleInvalidJWTAuthenticationExceptions(Exception ex,
+			WebRequest request) {
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(),
+				request.getDescription(false));
+		return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.FORBIDDEN);
+	}
+	
+	@ExceptionHandler(InvalidEmailException.class)
+	public final ResponseEntity<ExceptionResponse> HandleInvalidEmailExceptions(Exception ex,
 			WebRequest request) {
 		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(),
 				request.getDescription(false));
