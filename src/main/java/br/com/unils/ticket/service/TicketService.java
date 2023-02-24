@@ -2,48 +2,14 @@ package br.com.unils.ticket.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import br.com.unils.ticket.interfacesOrAbstracts.Crud;
 import br.com.unils.ticket.model.TicketModel;
-import br.com.unils.ticket.repository.TicketRepository;
 
-@Service
-public class TicketService implements Crud<TicketModel> {
+public interface TicketService extends Crud<TicketModel> {
 
-	@Autowired
-	private TicketRepository ticketRepository;
+	public void enableOrDisableTicket(boolean status, Long cod);
 
-	@Override
-	public TicketModel findById(Long id) {
-		return ticketRepository.findById(id).get();
-	}
+	public List<TicketModel> findTicketsEnableOrDisable(Boolean status);
 
-	@Override
-	public TicketModel save(TicketModel obj) {
-		return ticketRepository.save(obj);
-	}
-
-	@Override
-	public List<TicketModel> findAll() {
-		return ticketRepository.findAll();
-	}
-
-	@Override
-	public void remove(Long id) {
-		ticketRepository.deleteById(id);
-	}
-
-	public void enableOrDisableTicket(boolean status, Long cod) {
-		ticketRepository.EnableOrDisableTicket(status, cod);
-	}
-
-	public List<TicketModel> findTicketsEnableOrDisable(Boolean status) {
-		return ticketRepository.findAllTicketsEnableOrDisable(status);
-	}
-
-	public List<TicketModel> findTicketsActivesRoleFunc(Boolean status, Long id) {
-		return ticketRepository.findAllTicketsActivesOrDisableOfFunc(status, id);
-	}
+	public List<TicketModel> findTicketsActivesRoleFunc(Boolean status, Long id);
 }
